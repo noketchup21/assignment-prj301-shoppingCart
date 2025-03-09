@@ -17,7 +17,7 @@
     </head>
     <body>
         <h1>Day la trang chu tam thoi!!!</h1>
-        <a href='shoppingCartController?action=cartList'>Show cart list</a>
+        <a href='MainController?action=cartList'>Show cart list</a>
         <table>
             <tr>
                 <td>Id</td>
@@ -30,12 +30,12 @@
                         pageContext.setAttribute("games", games);
             %>
             <tr>
-                <td><a href="gameController?id=${games.gameId}"> ${games.gameId} </a></td>
+                <td><a href="MainController?id=${games.gameId}"> ${games.gameId} </a></td>
                 <td>${games.title}</td>
 
 
                 <td colspan="5">
-                    <form action="shoppingCartController" method="POST">
+                    <form action="MainController" method="POST">
                         <input name="action" value="addToCart" type="hidden">
                         <input type="hidden" name="id" value="${games.gameId}">
                         <input type="submit" value="Add to cart">

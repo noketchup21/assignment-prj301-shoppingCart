@@ -13,7 +13,8 @@
     </head>
     <body>
         <h1>Login</h1>
-        <form action="loginServlet" method="POST">
+        <form action="MainController" method="POST">
+            <input type="hidden" name="action" value="login"/>
             <input type ="text" name ="txtmail" placeholder="Nhap email cua ban" required=""/>
             <input type ="text" name ="txtpassword" placeholder="Nhap password" required=""/>
             <input type="submit" value="Login"/>

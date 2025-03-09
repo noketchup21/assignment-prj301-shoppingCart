@@ -15,7 +15,7 @@
         <title>Shopping Cart</title>
     </head>
     <body>
-        <a href='gameController?action=list'>Main Page</a>
+        <a href='MainController?action=list'>Main Page</a>
         <table>
             <tr>
                 <td>Id</td>
@@ -28,11 +28,11 @@
             %>
             <tr>
                 <td>
-                    <a href="gameController?id=${games.gameId}"> ${games.gameId} </a>
+                    <a href="MainController?id=${games.gameId}"> ${games.gameId} </a>
                 </td>
                 <td>${games.title}</td>
                 <td>
-                    <form action="shoppingCartController" method="POST">
+                    <form action="MainController" method="POST">
                         <input name="action" value="delete" type="hidden">
                         <input name="id" value="${games.gameId}" type="hidden">
                         <input type="submit" value="Delete">

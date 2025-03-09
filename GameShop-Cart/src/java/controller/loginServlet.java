@@ -47,7 +47,7 @@ public class loginServlet extends HttpServlet {
                 } else {
                     HttpSession s = request.getSession();
                     s.setAttribute("user", user);
-                    response.sendRedirect("gameController");
+                    response.sendRedirect("MainController");
                 }
             } else {
                 request.setAttribute("WARNING", "Email hoac mat khau chua duoc nhap");

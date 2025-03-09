@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/src/java/model/UsersDTO.java</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/web/homePage.jsp</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/src/java/controller/gameSearchServlet.java</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/web/gameSearch.jsp</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/src/java/model/GamesDTO.java</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/web/shoppingCart.jsp</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/web/loginPage.jsp</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/web/WEB-INF/web.xml</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/src/java/controller/shoppingCartController.java</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/src/java/controller/loginServlet.java</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/src/java/model/GamesDAO.java</file>
-            <file>file:/C:/uni/prj301/assignment/github/GameStoreAssignment/GameShop/src/java/controller/gameController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
