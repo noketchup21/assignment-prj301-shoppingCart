@@ -13,10 +13,11 @@ import java.sql.Date;
  */
 public class GamesDTO {
     private int  gameId;
-    private String title, description,publisher;
-    private double price;
+    private String title, description,publisher, url;
+    private double price, orginalPrice;
     private Date releaseDate;
     private int isDLC;
+    private int quantity =1;
 
     public GamesDTO() {
     }
@@ -92,6 +93,30 @@ public class GamesDTO {
 
     public void setGameId(int gameId) {
         this.gameId = gameId;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public double getOrginalPrice() {
+        return orginalPrice;
+    }
+
+    public void setOrginalPrice(double orginalPrice) {
+        this.orginalPrice = orginalPrice;
     }
     
     

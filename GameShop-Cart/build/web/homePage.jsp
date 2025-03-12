@@ -21,6 +21,7 @@
         <table>
             <tr>
                 <td>Id</td>
+                <td>Image</td>
                 <td>Game Name</td>
             </tr>
             <%
@@ -31,6 +32,7 @@
             %>
             <tr>
                 <td><a href="MainController?id=${games.gameId}"> ${games.gameId} </a></td>
+                <td><img src="<%= games.getUrl()%>" alt="Game Cover" width="100" height="100"></td>
                 <td>${games.title}</td>
 
 

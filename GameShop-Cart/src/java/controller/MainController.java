@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.CouponsDAO;
+import model.CouponsDTO;
 import model.GamesDAO;
 import model.GamesDTO;
 import model.UsersDAO;
@@ -62,7 +64,7 @@ public class MainController extends HttpServlet {
             switch (action) {
                 case "login":
                     handleLogin(request, response);
- //                   handleList(request, response);
+                    //                   handleList(request, response);
                     break;
                 case "logout":
 
@@ -79,6 +81,12 @@ public class MainController extends HttpServlet {
                     break;
                 case "delete":
                     handleCartDelete(request, response);
+                    break;
+                case "quantity":
+                    handleQuantity(request, response);
+                    break;
+                case "applyCoupon":
+                    handleApplyCoupon(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -183,6 +191,7 @@ public class MainController extends HttpServlet {
             GamesDTO games = GamesDAO.load(id);
 
             if (games != null && shoppingCartList.stream().noneMatch(g -> g.getGameId() == games.getGameId())) { //de check xem co trung id trong shopping cart, neu co thi chi dc add 1 lan
+                games.setOrginalPrice(games.getPrice());
                 shoppingCartList.add(games);
             }
             List<GamesDTO> list = GamesDAO.list(keyword, sortCol);
@@ -212,8 +221,87 @@ public class MainController extends HttpServlet {
             if (shoppingCartList == null) {
                 shoppingCartList = new ArrayList<>();
             }
+
             int id = Integer.parseInt(request.getParameter("id"));
             shoppingCartList.removeIf(game -> game.getGameId() == id); //xoa game co voi id
+            session.setAttribute("shoppingCartList", shoppingCartList);
+            request.setAttribute("shoppingCartList", shoppingCartList);
+            request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
+        }
+    }
+
+    protected void handleQuantity(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        String keyword = request.getParameter("keyword");
+        if (keyword == null) {
+            keyword = "";
+        }
+        String sortCol = request.getParameter("colSort");
+
+        GamesDAO gamesDAO = new GamesDAO();
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            return;
+        }
+
+        if (action.equals("quantity")) {
+            int gameId = Integer.parseInt(request.getParameter("id"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+
+            List<GamesDTO> shoppingCartList = (List<GamesDTO>) session.getAttribute("shoppingCartList");
+
+            if (shoppingCartList != null) {
+                for (GamesDTO game : shoppingCartList) {
+                    if (game.getGameId() == gameId) {
+                        game.setQuantity(quantity); // Ensure GamesDTO has a setQuantity method
+                        break;
+                    }
+                }
+            }
+
+            session.setAttribute("shoppingCartList", shoppingCartList);
+            request.setAttribute("shoppingCartList", shoppingCartList);
+            request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
+        }
+    }
+    
+        protected void handleApplyCoupon(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        String keyword = request.getParameter("keyword");
+        if (keyword == null) {
+            keyword = "";
+        }
+        String sortCol = request.getParameter("colSort");
+
+        GamesDAO gamesDAO = new GamesDAO();
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            return;
+        }
+
+        if (action.equals("applyCoupon")) {
+            String code = request.getParameter("code");
+            CouponsDAO dao = new CouponsDAO(); 
+
+            List<GamesDTO> shoppingCartList = (List<GamesDTO>) session.getAttribute("shoppingCartList");
+            boolean check = dao.validateCoupon(code);
+            if(!check) {
+                request.setAttribute("errorCode", "Code khong hop le hoac het hieu luc");
+                request.setAttribute("shoppingCartList", shoppingCartList);
+                request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
+                return;
+            } else{
+                int discount = dao.getDiscount(code);
+                for (GamesDTO game : shoppingCartList) {
+                    double discountedPrice = game.getOrginalPrice()* (1 - discount / 100.0);
+                    game.setPrice(discountedPrice);
+                }
+                request.setAttribute("couponApplied", true);
+            }
+            
+
             session.setAttribute("shoppingCartList", shoppingCartList);
             request.setAttribute("shoppingCartList", shoppingCartList);
             request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
